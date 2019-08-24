@@ -1,0 +1,306 @@
+<div class="container-fluid">
+  <button
+    id="addMemberButton"
+    class="btn btn-primary pull-right"
+    (click)="goToAddMemberForm(); openModal(addNewTemplate);"
+  >
+    Add Member
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Job Title</th>
+        <th>Racing Team</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{member?.id}}</td>
+        <td>{{member?.firstName}}</td>
+        <td>{{member?.lastName}}</td>
+        <td>{{member?.jobTitle}}</td>
+        <td>{{member?.teamName}}</td>
+        <td>{{member?.status}}</td>
+        <td>
+            <button
+            class="btn btn-success"
+            routerLink="/member-details/{{member?.id}}"
+          >
+            View
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="editMember(member); openModal(editTemplate);"
+          >
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="deleteMember(member)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #addNewTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">New Member</h4>
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" #newMemberForm="ngForm">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="firstName"
+              >First Name</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="newMember.firstName"
+                id="firstName"
+                name="firstName"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="lastName"
+              >Last Name</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="newMember.lastName"
+                id="lastName"
+                name="lastName"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="jobTitle"
+              >Job Title</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="newMember.jobTitle"
+                id="jobTitle"
+                name="jobTitle"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="team"
+              >Racing Team</label
+            >
+            <div class="col-md-12">
+              <select
+                class="form-control"
+                id="team"
+                required
+                [(ngModel)]="newMember.teamName"
+                name="teamName"
+              >
+                <option *ngFor="let team of teams" [value]="team.teamName"
+                  >{{team.teamName}}</option
+                >
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label required" for="radios"
+              >Status</label
+            >
+            <div class="col-md-12">
+              <label class="radio-inline mr-3" for="active-status">
+                <input
+                  type="radio"
+                  name="radios"
+                  id="active-status"
+                  value="Active"
+                  checked="checked"
+                  [(ngModel)]="newMember.status"
+                />
+                Active
+              </label>
+              <label class="radio-inline" for="inactive-status">
+                <input
+                  type="radio"
+                  name="radios"
+                  id="inactive-status"
+                  value="Inactive"
+                  [(ngModel)]="newMember.status"
+                />
+                Inactive
+              </label>
+              
+            </div>
+          </div>
+
+          <div class="form-group text-align-center">
+            <button
+              class="btn btn-primary"
+              [disabled]="!newMemberForm.form.valid"
+              (click)="modalRef.hide(); saveMember(newMemberForm);"
+            >
+              Submit
+            </button>
+            <button class="btn btn-danger" (click)="modalRef.hide();">
+              Cancel
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #editTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Edit Member - {{currentMember.firstName}} {{currentMember.lastName}}</h4>
+      <button
+        type="button"
+        class="close pull-right"
+        aria-label="Close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" #editForm="ngForm">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="firstName"
+              >First Name</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="currentMember.firstName"
+                id="firstName"
+                name="firstName"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="lastName"
+              >Last Name</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="currentMember.lastName"
+                id="lastName"
+                name="lastName"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="jobTitle"
+              >Job Title</label
+            >
+            <div class="col-md-12">
+              <input
+                required
+                [(ngModel)]="currentMember.jobTitle"
+                id="jobTitle"
+                name="jobTitle"
+                type="text"
+                class="form-control input-md"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="teamName"
+              >Racing Team</label
+            >
+            <div class="col-md-12">
+              <select
+                class="form-control"
+                id="teamName"
+                required
+                [(ngModel)]="currentMember.teamName"
+                name="team"
+              >
+                <option *ngFor="let team of teams" [value]="team.teamName"
+                  >{{team.teamName}}</option
+                >
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-12 control-label required" for="radios"
+              >Status</label
+            >
+            <div class="col-md-12">
+              <label class="radio-inline mr-3" for="active-status">
+                <input
+                  type="radio"
+                  name="radios"
+                  id="active-status"
+                  value="Active"
+                  checked="checked"
+                  [(ngModel)]="currentMember.status"
+                />
+                Active
+              </label>
+              <label class="radio-inline" for="inactive-status">
+                <input
+                  type="radio"
+                  name="radios"
+                  id="inactive-status"
+                  value="Inactive"
+                  [(ngModel)]="currentMember.status"
+                />
+                Inactive
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group text-align-center">
+            <button
+              class="btn btn-primary"
+              [disabled]="!editForm.form.valid"
+              (click)="modalRef.hide(); updateMember();"
+            >
+              Submit
+            </button>
+            <button class="btn btn-danger" (click)="modalRef.hide();">
+              Cancel
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </ng-template>
+</div>

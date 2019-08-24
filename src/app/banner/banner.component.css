@@ -1,0 +1,15 @@
+#raceCar {
+  width: 50%;
+  height: 50%;
+  top: -50px;
+  position: relative;
+}
+
+.logout {
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+.welcome {
+  text-transform: capitalize;
+}

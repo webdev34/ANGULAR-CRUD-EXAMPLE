@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ngx-toastr/toastr.css";
+
+html,
+body {
+  font-family: sans-serif;
+}
+
+body.modal-open {
+  overflow: auto;
+}
+
+.modal-backdrop.fade.in {
+  opacity: 0.7;
+}
+
+.modal.fade.in {
+  opacity: 1;
+}
+
+.modal-dialog{
+  top: 15%;
+}
+
+ul {
+  text-align: center;
+}
+
+button.btn {
+  margin: 0 10px;
+}
+
+a.btn{
+  color: white !important;
+}
+
+.btn-primary:disabled:hover {
+  cursor: not-allowed;
+}
+  
+#toast-container.toast-container .toast-success {
+  background-color: #51A351;
+  opacity: 1;
+}
+
+#toast-container.toast-container .toast-error {
+  background-color: #BD362F;
+  opacity: 1;
+}

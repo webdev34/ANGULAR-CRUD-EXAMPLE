@@ -1,0 +1,173 @@
+<div class="container-fluid col-md-6">
+  <h3 class="text-center lead">Add Member to Racing Team</h3>
+  <button class="btn btn-success mt-n4 pull-right" routerLink="/members">Back to Members</button>
+
+  <br />
+
+  <section [hidden]="currentMode == 'edit'">
+    <div class="form-group col-md-12">
+      <label class="col-md-2 control-label font-weight-bold p-0" for="firstName"
+        >First Name</label>
+      <span id="firstName" class="col-md-10 d-inline p-0">
+        {{currentMember.firstName}}
+      </span>
+    </div>
+
+    <div class="form-group col-md-12">
+        <label class="col-md-2 control-label font-weight-bold p-0" for="lastName"
+          >Last Name</label>
+        <span id="lastName" class="col-md-10 d-inline p-0">
+          {{currentMember.lastName}}
+        </span>
+    </div>
+
+    <div class="form-group col-md-12">
+        <label class="col-md-2 control-label font-weight-bold p-0" for="jobTitle"
+          >Job Title</label>
+        <span id="jobTitle" class="col-md-10 d-inline p-0">
+          {{currentMember.jobTitle}}
+        </span>
+    </div>
+
+    <div class="form-group col-md-12">
+        <label class="col-md-2 control-label font-weight-bold p-0" for="teamName"
+          >Racing Team</label>
+        <span id="teamName" class="col-md-10 d-inline p-0">
+          {{currentMember.teamName}}
+        </span>
+    </div>
+
+    <div class="form-group col-md-12">
+        <label class="col-md-2 control-label font-weight-bold p-0" for="status"
+          >Status</label>
+        <span id="status" class="col-md-10 d-inline p-0">
+          {{currentMember.status}}
+        </span>
+    </div>
+
+    <div class="form-group text-align-center">
+      <button
+        class="btn btn-primary"
+        
+        (click)="toggleView('edit');"
+      >
+        Edit Member
+      </button>
+  
+    </div>
+  </section>
+
+  <form class="form-horizontal" #editForm="ngForm" [hidden]="currentMode == 'view'" (ngSubmit)="onSubmit(editForm)">
+      <fieldset>
+        <div class="form-group">
+          <label class="col-md-12 control-label required" for="firstName"
+            >First Name</label
+          >
+          <div class="col-md-12">
+            <input
+              required
+              [(ngModel)]="currentMember.firstName"
+              id="firstName"
+              name="firstName"
+              type="text"
+              class="form-control input-md"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12 control-label required" for="lastName"
+            >Last Name</label
+          >
+          <div class="col-md-12">
+            <input
+              required
+              [(ngModel)]="currentMember.lastName"
+              id="lastName"
+              name="lastName"
+              type="text"
+              class="form-control input-md"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12 control-label required" for="jobTitle"
+            >Job Title</label
+          >
+          <div class="col-md-12">
+            <input
+              required
+              [(ngModel)]="currentMember.jobTitle"
+              id="jobTitle"
+              name="jobTitle"
+              type="text"
+              class="form-control input-md"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12 control-label required" for="teamName"
+            >Racing Team</label
+          >
+          <div class="col-md-12">
+            <select
+              class="form-control"
+              id="teamName"
+              required
+              [(ngModel)]="currentMember.teamName"
+              name="teamName"
+            >
+              <option *ngFor="let team of teams" [value]="team.teamName"
+                >{{team.teamName}}</option
+              >
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-12 control-label required" for="radios"
+            >Status</label
+          >
+          <div class="col-md-12">
+            <label class="radio-inline mr-3" for="active-status">
+              <input
+                type="radio"
+                name="status"
+                id="active-status"
+                value="Active"
+                checked="checked"
+                [(ngModel)]="currentMember.status"
+              />
+              Active
+            </label>
+            <label class="radio-inline" for="inactive-status">
+              <input
+                type="radio"
+                name="status"
+                id="inactive-status"
+                value="Inactive"
+                [(ngModel)]="currentMember.status"
+              />
+              Inactive
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group text-align-center">
+          <button
+            class="btn btn-primary"
+            [disabled]="!editForm.form.valid"
+            
+          >
+            Submit
+          </button>
+          <a class="btn btn-danger" (click)="toggleView('view');">
+            Cancel
+          </a>
+        </div>
+      </fieldset>
+  </form>
+
+</div>

@@ -1,0 +1,15 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <img id="raceCar" class="pull-right" src="https://purepng.com/public/uploads/large/purepng.com-mclaren-650s-gt3-yellow-race-carcarvehicletransportmclarenrace-car-961524644630j4tgq.png">
+    <h1 class="display-4">Softrams Racing</h1>
+    <p class="lead">Redefining digital frontiers.</p>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <p *ngIf="appService.username" class="welcome">Welcome {{ appService.username }}, <span (click)="logout()" class="logout text-primary">logout here</span></p>
+    </div>
+  </div>
+</div>
+

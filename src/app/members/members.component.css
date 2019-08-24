@@ -1,0 +1,19 @@
+#addMemberButton {
+  margin-bottom: 10px;
+}
+
+label.required:before {
+  content: "*";
+  color: red;
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+td,
+th {
+  text-transform: capitalize;
+}
